@@ -105,7 +105,8 @@
             width: 100vw; height: 100vh;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.6;
+            /* Augmentation de l'opacité pour bien voir les feux d'artifice */
+            opacity: 0.8; 
         }
 
         /* Glowing Orbs */
@@ -243,6 +244,8 @@
             border-radius: var(--br-md);
             min-width: 100px;
             box-shadow: 0 10px 20px var(--accent-glow);
+            /* Ajout d'une lueur pour fêter l'arrivée à 0 */
+            animation: pulseGlow 2s infinite; 
         }
 
         .cd-num {
@@ -307,7 +310,7 @@
         }
 
         .card-content {
-            transform: translateZ(30px); /* Effet 3D sur le contenu */
+            transform: translateZ(30px);
         }
 
         .icon-box {
@@ -616,10 +619,10 @@
             
             <h1 class="hero-title text-gradient">CINELK10 </h1>
             <p style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: var(--sp-md); max-width: 800px;">
-                Votre nouvelle destination streaming ouvre ses portes à 18h00. 
+                Votre nouvelle destination streaming a ouvert ses portes !
             </p>
             <p style="color: var(--text-secondary); max-width: 600px;">
-                Soyez au rendez-vous !  Préparez votre setup et votre pop-corn. L'accès global sera activé précisément à cette heure pour tous les membres du serveur. 
+                C'est l'heure ! L'accès global est activé pour tous les membres du serveur. Bon visionnage.
             </p>
 
             <div class="countdown-wrapper">
@@ -814,9 +817,9 @@
         </section>
 
         <section class="reveal" style="text-align: center; padding-top: var(--sp-3xl); border-top: 1px solid var(--border-light);">
-            <h2 style="font-size: 3rem; margin-bottom: var(--sp-sm);">Rendez-vous à 18h00 </h2>
+            <h2 style="font-size: 3rem; margin-bottom: var(--sp-sm);">Bienvenue </h2>
             <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: var(--sp-3xl);">
-                Préparez-vous pour le futur de notre communauté streaming. 
+                Entrez dès maintenant et profitez du catalogue. 
             </p>
             
             <a href="https://lk10ar.github.io/streaming-cine-lk10/" target="_blank" class="cta-btn">
@@ -839,11 +842,8 @@
 
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Remove active class from all
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked
                 btn.classList.add('active');
                 const targetId = btn.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
@@ -852,12 +852,7 @@
 
         // 2. ANIMATION AU SCROLL (INTERSECTION OBSERVER)
         const revealElements = document.querySelectorAll('.reveal');
-        
-        const revealOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
+        const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
         const revealOnScroll = new IntersectionObserver(function(entries, observer) {
             entries.forEach(entry => {
                 if (!entry.isIntersecting) return;
@@ -865,32 +860,25 @@
                 observer.unobserve(entry.target);
             });
         }, revealOptions);
-
         revealElements.forEach(el => revealOnScroll.observe(el));
 
         // 3. EFFET 3D TILT SUR LES CARTES
         const cards = document.querySelectorAll('.glass-card');
-        
         cards.forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x position within the element
-                const y = e.clientY - rect.top;  // y position within the element
-                
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+                const rotateX = ((y - centerY) / centerY) * -10;
                 const rotateY = ((x - centerX) / centerX) * 10;
-                
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
             });
-            
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
                 card.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             });
-            
             card.addEventListener('mouseenter', () => {
                 card.style.transition = 'none';
             });
@@ -904,7 +892,6 @@
                 snippet.innerText = "Copié !";
                 snippet.style.background = "var(--accent-main)";
                 snippet.style.color = "#000";
-                
                 setTimeout(() => {
                     snippet.innerText = originalText;
                     snippet.style.background = "#000";
@@ -913,108 +900,149 @@
             });
         }
 
-        // 5. COMPTE A REBOURS JUSQU'A 18H00 AUJOURD'HUI
-        function startCountdown() {
-            const now = new Date();
-            let targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 0, 0);
-            
-            // Si 18h est déjà passé aujourd'hui, on cible demain (optionnel, selon besoin)
-            if (now > targetTime) {
-                targetTime.setDate(targetTime.getDate() + 1);
-            }
+        // 5. FEUX D'ARTIFICE (REMPLACE L'ANCIEN CANVAS DE PARTICULES)
+        window.requestAnimFrame = (function() {
+            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function(callback) { window.setTimeout(callback, 1000 / 60); };
+        })();
 
-            const elHours = document.getElementById('cd-hours');
-            const elMinutes = document.getElementById('cd-minutes');
-            const elSeconds = document.getElementById('cd-seconds');
-
-            const timer = setInterval(() => {
-                const currentTime = new Date().getTime();
-                const distance = targetTime.getTime() - currentTime;
-
-                if (distance < 0) {
-                    clearInterval(timer);
-                    elHours.innerText = "00";
-                    elMinutes.innerText = "00";
-                    elSeconds.innerText = "00";
-                    return;
-                }
-
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                elHours.innerText = hours.toString().padStart(2, '0');
-                elMinutes.innerText = minutes.toString().padStart(2, '0');
-                elSeconds.innerText = seconds.toString().padStart(2, '0');
-            }, 1000);
-        }
-        
-        startCountdown();
-
-        // 6. SYSTEME DE PARTICULES SUR CANVAS (BACKGROUND)
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
+        let cw = window.innerWidth;
+        let ch = window.innerHeight;
+        canvas.width = cw;
+        canvas.height = ch;
+
+        const fireworks = [];
+        const particles = [];
+        // Teinte de base jaune/doré pour coller au thème CINELK10
+        let hue = 45; 
         
-        let width, height;
-        let particles = [];
+        function random(min, max) { return Math.random() * (max - min) + min; }
         
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+        function calculateDistance(p1x, p1y, p2x, p2y) {
+            const xDistance = p1x - p2x;
+            const yDistance = p1y - p2y;
+            return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
         }
-        
-        window.addEventListener('resize', resize);
-        resize();
-        
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * -0.5 - 0.1;
-                this.opacity = Math.random() * 0.5 + 0.1;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                
-                // Reset position if it goes out of bounds
-                if (this.y < 0) {
-                    this.y = height;
-                    this.x = Math.random() * width;
-                }
-                if (this.x < 0 || this.x > width) {
-                    this.speedX = -this.speedX;
-                }
-            }
-            draw() {
-                ctx.fillStyle = `rgba(255, 204, 0, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+
+        function Firework(sx, sy, tx, ty) {
+            this.x = sx; this.y = sy;
+            this.sx = sx; this.sy = sy;
+            this.tx = tx; this.ty = ty;
+            this.distanceToTarget = calculateDistance(sx, sy, tx, ty);
+            this.distanceTraveled = 0;
+            this.coordinates = [];
+            this.coordinateCount = 3;
+            while(this.coordinateCount--) { this.coordinates.push([this.x, this.y]); }
+            this.angle = Math.atan2(ty - sy, tx - sx);
+            this.speed = 2;
+            this.acceleration = 1.05;
+            this.brightness = random(50, 70);
+            this.targetRadius = 1;
+        }
+
+        Firework.prototype.update = function(index) {
+            this.coordinates.pop();
+            this.coordinates.unshift([this.x, this.y]);
+            if(this.targetRadius < 8) { this.targetRadius += 0.3; } else { this.targetRadius = 1; }
+            this.speed *= this.acceleration;
+            const vx = Math.cos(this.angle) * this.speed;
+            const vy = Math.sin(this.angle) * this.speed;
+            this.distanceTraveled = calculateDistance(this.sx, this.sy, this.x + vx, this.y + vy);
+            
+            if(this.distanceTraveled >= this.distanceToTarget) {
+                createParticles(this.tx, this.ty);
+                fireworks.splice(index, 1);
+            } else {
+                this.x += vx; this.y += vy;
             }
         }
-        
-        function initParticles() {
-            particles = [];
-            let numParticles = (width * height) / 15000; // Densité des particules
-            for (let i = 0; i < numParticles; i++) {
-                particles.push(new Particle());
+
+        Firework.prototype.draw = function() {
+            ctx.beginPath();
+            ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+            ctx.lineTo(this.x, this.y);
+            ctx.strokeStyle = `hsl(${hue}, 100%, ${this.brightness}%)`;
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.arc(this.tx, this.ty, this.targetRadius, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        function Particle(x, y) {
+            this.x = x; this.y = y;
+            this.coordinates = [];
+            this.coordinateCount = 5;
+            while(this.coordinateCount--) { this.coordinates.push([this.x, this.y]); }
+            this.angle = random(0, Math.PI * 2);
+            this.speed = random(1, 10);
+            this.friction = 0.95;
+            this.gravity = 1;
+            // Variation légère autour de la couleur principale
+            this.hue = random(hue - 15, hue + 15);
+            this.brightness = random(50, 80);
+            this.alpha = 1;
+            this.decay = random(0.015, 0.03);
+        }
+
+        Particle.prototype.update = function(index) {
+            this.coordinates.pop();
+            this.coordinates.unshift([this.x, this.y]);
+            this.speed *= this.friction;
+            this.x += Math.cos(this.angle) * this.speed;
+            this.y += Math.sin(this.angle) * this.speed + this.gravity;
+            this.alpha -= this.decay;
+            if(this.alpha <= this.decay) { particles.splice(index, 1); }
+        }
+
+        Particle.prototype.draw = function() {
+            ctx.beginPath();
+            ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+            ctx.lineTo(this.x, this.y);
+            ctx.strokeStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, ${this.alpha})`;
+            ctx.stroke();
+        }
+
+        function createParticles(x, y) {
+            let particleCount = 50;
+            while(particleCount--) { particles.push(new Particle(x, y)); }
+        }
+
+        function loop() {
+            requestAnimFrame(loop);
+            // Effet de trainée en nettoyant le canvas avec une opacité partielle
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+            ctx.fillRect(0, 0, cw, ch);
+            ctx.globalCompositeOperation = 'lighter';
+            
+            let i = fireworks.length;
+            while(i--) {
+                fireworks[i].draw();
+                fireworks[i].update(i);
+            }
+            
+            let j = particles.length;
+            while(j--) {
+                particles[j].draw();
+                particles[j].update(j);
+            }
+            
+            // Lancement aléatoire de feux d'artifice (taux ajusté)
+            if(Math.random() < 0.04) {
+                fireworks.push(new Firework(cw / 2, ch, random(0, cw), random(0, ch / 2)));
             }
         }
-        
-        function animateParticles() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        
-        initParticles();
-        animateParticles();
+
+        window.addEventListener('resize', () => {
+            cw = canvas.width = window.innerWidth;
+            ch = canvas.height = window.innerHeight;
+        });
+
+        // Démarrage de la boucle des feux d'artifice
+        loop();
+
     </script>
 </body>
 </html>
