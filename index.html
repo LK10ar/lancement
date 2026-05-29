@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineLK10 - Lancement Officiel</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           DESIGN SYSTEM & VARIABLES CSS
+           ========================================================================== */
+        :root {
+            /* Couleurs Fondamentales */
+            --color-bg-base: #050505;
+            --color-bg-surface: #121214;
+            --color-bg-surface-elevated: #1c1c1f;
+            --color-bg-glass: rgba(18, 18, 20, 0.6);
+            
+            /* Couleurs d'Accentuation (CineLK10 Jaune) */
+            --color-accent-primary: #ffcc00;
+            --color-accent-hover: #e6b800;
+            --color-accent-glow: rgba(255, 204, 0, 0.15);
+            --color-accent-glow-strong: rgba(255, 204, 0, 0.3);
+            
+            /* Typographie */
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #a1a1aa;
+            --color-text-muted: #71717a;
+            
+            /* Bordures & UI */
+            --color-border-subtle: #27272a;
+            --color-border-focus: #3f3f46;
+            --discord-color: #5865F2;
+            
+            /* Espacements (Spacing Scale) */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 16px;
+            --space-4: 24px;
+            --space-5: 32px;
+            --space-6: 48px;
+            --space-8: 64px;
+            --space-12: 96px;
+            
+            /* Rayons de bordure (Border Radius) */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ==========================================================================
+           RESET & BASE STYLES
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--color-bg-base);
+            color: var(--color-text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Arrière-plan animé et texturé */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% -20%, var(--color-accent-glow), transparent 60%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           TYPOGRAPHY
+           ========================================================================== */
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--color-text-primary);
+            line-height: 1.2;
+            margin-bottom: var(--space-3);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, var(--color-accent-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ==========================================================================
+           LAYOUT & CONTAINERS
+           ========================================================================== */
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-4);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-12);
+        }
+
+        section {
+            animation: fadeUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Délais d'animation pour l'apparition en cascade */
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.3s; }
+        section:nth-child(3) { animation-delay: 0.5s; }
+        section:nth-child(4) { animation-delay: 0.7s; }
+        section:nth-child(5) { animation-delay: 0.9s; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+        }
+
+        .section-header p {
+            color: var(--color-text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           COMPONENTS
+           ========================================================================== */
+           
+        /* Hero Section */
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: var(--space-12) var(--space-4);
+            background: var(--color-bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 80%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-accent-primary), transparent);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: var(--space-4);
+        }
+
+        .badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: rgba(255, 204, 0, 0.1);
+            color: var(--color-accent-primary);
+            padding: var(--space-3) var(--space-5);
+            border-radius: var(--radius-full);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border: 1px solid var(--color-accent-glow-strong);
+            box-shadow: 0 0 30px var(--color-accent-glow);
+            animation: pulseGlow 2s infinite;
+        }
+
+        /* Grid System (CSS Grid) */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-5);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,204,0,0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .card:hover::after { opacity: 1; }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-border-focus);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
+            background: var(--color-bg-surface-elevated);
+        }
+
+        .card-icon {
+            width: 64px; height: 64px;
+            background: var(--color-accent-glow);
+            color: var(--color-accent-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: var(--space-5);
+            border: 1px solid var(--color-accent-glow-strong);
+            transition: var(--transition-bounce);
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .code-block {
+            display: inline-block;
+            background: #000;
+            color: var(--color-accent-primary);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-sm);
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: 1px solid #333;
+            margin-top: var(--space-3);
+            letter-spacing: 1px;
+        }
+
+        /* UI Mockup (Fidèle à l'image fournie) */
+        .mockup-container {
+            background: #0a0a0c;
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+
+        .ui-tabs {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-8);
+            border-bottom: 1px solid #222;
+            padding-bottom: var(--space-3);
+            flex-wrap: wrap;
+        }
+
+        .ui-tab {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: #71717a;
+            font-weight: 600;
+            font-size: 1.2rem;
+            cursor: default;
+            padding-bottom: var(--space-2);
+            position: relative;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .ui-tab span { color: #52525b; }
+        
+        .ui-tab.active { color: var(--color-accent-primary); }
+        .ui-tab.active span { color: var(--color-accent-primary); }
+        
+        .ui-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -17px; left: 0; width: 100%; height: 3px;
+            background: var(--color-accent-primary);
+            border-radius: 3px 3px 0 0;
+            box-shadow: 0 -2px 10px var(--color-accent-glow-strong);
+        }
+
+        /* Liste des points forts */
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.02);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border-subtle);
+            transition: var(--transition-fast);
+        }
+
+        .feature-list li:hover {
+            background: rgba(255,255,255,0.04);
+            transform: translateX(10px);
+            border-color: var(--color-border-focus);
+        }
+
+        .feature-list i {
+            color: var(--color-accent-primary);
+            font-size: 1.5rem;
+            margin-top: 2px;
+        }
+
+        .feature-list strong { color: var(--color-text-primary); }
+
+        /* Tableau Comparatif */
+        .table-wrapper {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: var(--space-5);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        th {
+            background: rgba(255, 204, 0, 0.05);
+            color: var(--color-accent-primary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        
+        tr:hover td { background: rgba(255,255,255,0.02); }
+        
+        td:nth-child(2) { color: var(--color-text-muted); }
+        td:nth-child(3) { color: var(--color-text-primary); font-weight: 600; }
+
+        /* Bannière Discord (Composant Spécifique) */
+        .discord-card {
+            background: linear-gradient(145deg, rgba(88, 101, 242, 0.1) 0%, rgba(18, 18, 20, 1) 100%);
+            border: 1px solid var(--discord-color);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discord-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--discord-color);
+            box-shadow: 0 0 20px var(--discord-color);
+        }
+
+        .discord-icon {
+            font-size: 5rem;
+            color: var(--discord-color);
+            filter: drop-shadow(0 0 20px rgba(88, 101, 242, 0.4));
+        }
+
+        /* Bouton & CTA */
+        .cta-container {
+            text-align: center;
+            padding: var(--space-8) 0;
+            border-top: 1px solid var(--color-border-subtle);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            background: var(--color-accent-primary);
+            color: #000;
+            padding: var(--space-4) var(--space-8);
+            border-radius: var(--radius-md);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.25rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-bounce);
+            box-shadow: 0 10px 20px var(--color-accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            background: var(--color-accent-hover);
+            box-shadow: 0 15px 30px var(--color-accent-glow-strong);
+        }
+
+        /* ==========================================================================
+           ANIMATIONS (KEYFRAMES)
+           ========================================================================== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 var(--color-accent-glow-strong); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 204, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0); }
+        }
+
+        /* ==========================================================================
+           MEDIA QUERIES (RESPONSIVE DESIGN)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .page-wrapper { padding: var(--space-4); gap: var(--space-8); }
+            .hero h1 { font-size: 3.5rem; }
+            .discord-card { flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 768px) {
+            .ui-tabs { gap: var(--space-4); }
+            .ui-tab { font-size: 1rem; }
+            th, td { padding: var(--space-3); font-size: 0.9rem; }
+            .btn-primary { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="page-wrapper">
+        
+        <section class="hero">
+            <h1 class="text-gradient">CINELK10</h1>
+            <p style="font-size: 1.25rem; color: var(--color-text-secondary); margin-bottom: var(--space-5);">
+                Votre nouvelle destination streaming ouvre ses portes à 18h00.
+            </p>
+            <div class="badge-live">
+                <i class="fa-solid fa-satellite-dish"></i> Compte à rebours lancé - 18:00
+            </div>
+            <p style="margin-top: var(--space-6); color: var(--color-text-muted); max-width: 700px; margin-left: auto; margin-right: auto;">
+                Soyez au rendez-vous ! Préparez votre setup et votre pop-corn. L'accès global sera activé précisément à cette heure pour tous les membres du serveur. Ouverture des serveurs imminente.
+            </p>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Comment nous rejoindre ?</h2>
+                <p>Une procédure simple pour un accès illimité. Suivez ces étapes pour déverrouiller la plateforme.</p>
+            </div>
+            
+            <div class="bento-grid">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-link"></i></div>
+                    <h3>Lien du site</h3>
+                    <p>Accédez à l'adresse officielle hébergée sur GitHub Pages pour découvrir l'intégralité de notre catalogue.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Sécurité</h3>
+                    <p>Utilisez le mot de passe de sécurité pour déverrouiller l'entrée de la plateforme :</p>
+                    <span class="code-block">cinelk10.co</span>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-user-plus"></i></div>
+                    <h3>Inscription</h3>
+                    <p>Créez votre compte personnel (Identifiant + Mot de passe) pour finaliser votre accès et sauvegarder vos données.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Votre espace profil complet</h2>
+                <p>Une interface pensée pour les utilisateurs exigeants.</p>
+            </div>
+            
+            <div class="mockup-container">
+                <div class="ui-tabs">
+                    <div class="ui-tab"><i class="fa-solid fa-heart"></i> Favoris <span>0</span></div>
+                    <div class="ui-tab active"><i class="fa-solid fa-clock"></i> À voir <span>2</span></div>
+                    <div class="ui-tab"><i class="fa-solid fa-trophy"></i> Mon Top <span>0</span></div>
+                </div>
+            </div>
+
+            <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-heart"></i></div>
+                    <h3>Vos Favoris</h3>
+                    <p>Retrouvez instantanément tous vos films et séries préférés en un clic depuis votre tableau de bord central.</p>
+                </div>
+                <div class="card" style="border-color: rgba(255,204,0,0.3); background: var(--color-bg-surface-elevated);">
+                    <div class="card-icon"><i class="fa-solid fa-clock"></i></div>
+                    <h3>Liste "À voir"</h3>
+                    <p>Ne perdez plus jamais une suggestion ! Enregistrez vos pépites pour plus tard très facilement grâce à cette liste dédiée.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
+                <div class="card">
+                    <h2 style="font-size: 1.75rem; color: var(--color-accent-primary);">Personnalisation & Sécurité</h2>
+                    
+                    <h4 style="margin-top: var(--space-4); font-size: 1.2rem;">Profil à votre image</h4>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">Customisez votre expérience en ajoutant votre propre photo de profil dès votre première connexion.</p>
+                    
+                    <h4 style="font-size: 1.2rem;">Sécurité renforcée</h4>
+                    <p style="color: var(--color-text-secondary);">Vous avez la possibilité de changer votre mot de passe à tout moment en cas d'oubli ou pour plus de sûreté.</p>
+                </div>
+                
+                <div class="card">
+                    <h2 style="font-size: 1.75rem; color: var(--color-accent-primary);">Exclusivité totale</h2>
+                    
+                    <h4 style="margin-top: var(--space-4); font-size: 1.2rem;">Un contenu toujours frais</h4>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">À partir d'aujourd'hui, l'intégralité des nouveaux ajouts se fera exclusivement sur la plateforme web CineLK10.</p>
+                    
+                    <p style="color: var(--color-text-secondary);">C'est votre hub central pour toutes les nouveautés cinéma et séries, avec un historique de vue pour ne jamais oublier où vous en êtes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Points forts de l'expérience</h2>
+            </div>
+            
+            <div class="mockup-container">
+                <ul class="feature-list">
+                    <li>
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <div><strong>Historique de visionnage :</strong> Reprenez vos contenus exactement là où vous les avez laissés.</div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-gem"></i>
+                        <div><strong>Qualité Premium :</strong> Une interface fluide et des flux optimisés pour tous vos écrans (4K / Ultra HD).</div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-sliders"></i>
+                        <div><strong>Gestion simplifiée :</strong> Votre compte vous suit partout avec vos paramètres personnalisés.</div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-bolt"></i>
+                        <div><strong>Nouveautés quotidiennes :</strong> Une mise à jour régulière basée sur vos suggestions Discord.</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Comparatif des services</h2>
+                <p>Pourquoi CineLK10 est la mise à jour dont la communauté avait besoin.</p>
+            </div>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fonctionnalité</th>
+                            <th>Ancien Système</th>
+                            <th>Nouveau CineLK10</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Profil Personnel</strong></td>
+                            <td>Inexistant</td>
+                            <td>Mot de passe de sécurité & Photo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Historique / Favoris</strong></td>
+                            <td>Manuel / Externe</td>
+                            <td>Automatique & Intégré</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sécurité d'accès</strong></td>
+                            <td>Basique</td>
+                            <td>Sécurisé par clé (cinelk10.co)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mises à jour</strong></td>
+                            <td>Limité</td>
+                            <td>Exclusive & Illimitée</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <div class="discord-card">
+                <div class="discord-icon">
+                    <i class="fa-brands fa-discord"></i>
+                </div>
+                <div>
+                    <h2 style="margin-bottom: var(--space-2);">Communauté & Suggestions</h2>
+                    <h3 style="color: var(--discord-color); font-size: 1.25rem;">Le salon Discord reste actif</h3>
+                    <p style="color: var(--color-text-secondary); margin-top: var(--space-3);">
+                        Même si le streaming bascule sur le site, vos suggestions de films et séries continuent de se faire ici sur le serveur Discord ! Partagez vos envies, nous les traiterons et les ajouterons directement au catalogue du site.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-container">
+            <h2 style="font-size: 2.5rem;">Rendez-vous à 18h00</h2>
+            <p style="font-size: 1.25rem; color: var(--color-text-secondary); margin-bottom: var(--space-6);">
+                Préparez-vous pour le futur de notre communauté streaming.
+            </p>
+            
+            <a href="https://lk10ar.github.io/streaming-cine-lk10/" target="_blank" class="btn-primary">
+                Entrer sur CineLK10 <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            
+            <div style="margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border-subtle);">
+                <h3 style="color: var(--color-text-muted); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px;">Des questions ?</h3>
+                <p style="color: var(--color-text-secondary);">N'hésitez pas à poser vos questions sur le salon dédié du serveur Discord.</p>
+                <p style="margin-top: var(--space-3); color: var(--color-accent-primary); font-weight: 700; font-size: 1.2rem;">Merci de faire partie de l'aventure CineLK10!</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
