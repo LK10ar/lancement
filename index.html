@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineLK10 - Lancement Officiel</title>
+    <title>CINÉ LK10 - Le Futur du Streaming</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,56 +12,60 @@
     
     <style>
         /* ==========================================================================
-           DESIGN SYSTEM & VARIABLES CSS
+           DESIGN SYSTEM & CSS VARIABLES
            ========================================================================== */
         :root {
-            /* Couleurs Fondamentales */
-            --color-bg-base: #050505;
-            --color-bg-surface: #121214;
-            --color-bg-surface-elevated: #1c1c1f;
-            --color-bg-glass: rgba(18, 18, 20, 0.6);
+            /* Palette de Couleurs */
+            --bg-base: #030305;
+            --bg-surface: rgba(18, 18, 22, 0.6);
+            --bg-surface-solid: #121216;
+            --bg-elevated: rgba(30, 30, 35, 0.8);
             
-            /* Couleurs d'Accentuation (CineLK10 Jaune) */
-            --color-accent-primary: #ffcc00;
-            --color-accent-hover: #e6b800;
-            --color-accent-glow: rgba(255, 204, 0, 0.15);
-            --color-accent-glow-strong: rgba(255, 204, 0, 0.3);
+            /* Couleurs CineLK10 */
+            --accent-main: #ffcc00;
+            --accent-hover: #ffd633;
+            --accent-glow: rgba(255, 204, 0, 0.15);
+            --accent-glow-strong: rgba(255, 204, 0, 0.4);
             
-            /* Typographie */
-            --color-text-primary: #ffffff;
-            --color-text-secondary: #a1a1aa;
-            --color-text-muted: #71717a;
+            /* Textes */
+            --text-title: #ffffff;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
             
-            /* Bordures & UI */
-            --color-border-subtle: #27272a;
-            --color-border-focus: #3f3f46;
+            /* Utilitaires */
+            --border-light: rgba(255, 255, 255, 0.05);
+            --border-focus: rgba(255, 204, 0, 0.3);
             --discord-color: #5865F2;
             
-            /* Espacements (Spacing Scale) */
-            --space-1: 4px;
-            --space-2: 8px;
-            --space-3: 16px;
-            --space-4: 24px;
-            --space-5: 32px;
-            --space-6: 48px;
-            --space-8: 64px;
-            --space-12: 96px;
+            /* Espacements */
+            --sp-xs: 4px;
+            --sp-sm: 8px;
+            --sp-md: 16px;
+            --sp-lg: 24px;
+            --sp-xl: 32px;
+            --sp-2xl: 48px;
+            --sp-3xl: 64px;
+            --sp-4xl: 96px;
             
-            /* Rayons de bordure (Border Radius) */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 24px;
-            --radius-full: 9999px;
+            /* Border Radius */
+            --br-sm: 8px;
+            --br-md: 16px;
+            --br-lg: 24px;
+            --br-xl: 32px;
+            --br-full: 9999px;
             
             /* Transitions */
-            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-fast: 0.15s var(--ease-out);
+            --transition-normal: 0.3s var(--ease-out);
+            --transition-slow: 0.5s var(--ease-in-out);
         }
 
         /* ==========================================================================
-           RESET & BASE STYLES
+           RESET & GLOBAL STYLES
            ========================================================================== */
         *, *::before, *::after {
             box-sizing: border-box;
@@ -71,36 +75,59 @@
 
         html {
             scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         body {
-            background-color: var(--color-bg-base);
-            color: var(--color-text-primary);
+            background-color: var(--bg-base);
+            color: var(--text-primary);
             font-family: 'Plus Jakarta Sans', sans-serif;
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
-            position: relative;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Arrière-plan animé et texturé */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at 50% -20%, var(--color-accent-glow), transparent 60%);
-            z-index: -2;
-            pointer-events: none;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-main); }
+
+        ::selection {
+            background: var(--accent-glow-strong);
+            color: var(--text-title);
         }
 
-        body::after {
-            content: '';
+        /* Canvas Background */
+        #particle-canvas {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: -1;
             pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Glowing Orbs */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -2;
+            pointer-events: none;
+            animation: floatOrb 20s infinite alternate var(--ease-in-out);
+        }
+        .orb-1 {
+            top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: rgba(255, 204, 0, 0.05);
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            bottom: -20%; right: -10%;
+            width: 60vw; height: 60vw;
+            background: rgba(255, 255, 255, 0.02);
+            animation-delay: -5s;
         }
 
         /* ==========================================================================
@@ -108,596 +135,886 @@
            ========================================================================== */
         h1, h2, h3, h4 {
             font-family: 'Outfit', sans-serif;
-            color: var(--color-text-primary);
+            color: var(--text-title);
             line-height: 1.2;
-            margin-bottom: var(--space-3);
         }
 
         .text-gradient {
-            background: linear-gradient(135deg, #fff 0%, var(--color-accent-primary) 100%);
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-main) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        /* ==========================================================================
-           LAYOUT & CONTAINERS
-           ========================================================================== */
-        .page-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--space-8) var(--space-4);
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-12);
-        }
-
-        section {
-            animation: fadeUp 1s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        /* Délais d'animation pour l'apparition en cascade */
-        section:nth-child(1) { animation-delay: 0.1s; }
-        section:nth-child(2) { animation-delay: 0.3s; }
-        section:nth-child(3) { animation-delay: 0.5s; }
-        section:nth-child(4) { animation-delay: 0.7s; }
-        section:nth-child(5) { animation-delay: 0.9s; }
-
         .section-header {
             text-align: center;
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--sp-3xl);
+            position: relative;
+            z-index: 2;
         }
 
         .section-header h2 {
             font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
+            font-weight: 800;
+            margin-bottom: var(--sp-md);
+            letter-spacing: -1px;
         }
 
         .section-header p {
-            color: var(--color-text-secondary);
+            color: var(--text-secondary);
             font-size: 1.125rem;
             max-width: 600px;
             margin: 0 auto;
         }
 
         /* ==========================================================================
-           COMPONENTS
+           LAYOUT
            ========================================================================== */
-           
-        /* Hero Section */
-        .hero {
+        .layout-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: var(--sp-4xl) var(--sp-lg);
+            display: flex;
+            flex-direction: column;
+            gap: 120px;
             position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: all 0.8s var(--ease-out);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            padding: var(--space-12) var(--space-4);
-            background: var(--color-bg-glass);
+            padding: 100px 20px;
+            background: var(--bg-surface);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--br-xl);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0; left: 50%;
-            transform: translateX(-50%);
-            width: 80%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--color-accent-primary), transparent);
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-main), transparent);
+            opacity: 0.5;
         }
 
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
             font-weight: 900;
             letter-spacing: -2px;
             text-transform: uppercase;
-            margin-bottom: var(--space-4);
+            margin-bottom: var(--sp-lg);
+            animation: textShimmer 3s infinite linear;
+            background-size: 200% auto;
         }
 
-        .badge-live {
+        /* Compte à Rebours */
+        .countdown-wrapper {
+            display: flex;
+            gap: var(--sp-md);
+            margin: var(--sp-xl) 0;
+        }
+
+        .cd-box {
+            background: var(--bg-surface-solid);
+            border: 1px solid var(--border-focus);
+            padding: var(--sp-lg);
+            border-radius: var(--br-md);
+            min-width: 100px;
+            box-shadow: 0 10px 20px var(--accent-glow);
+        }
+
+        .cd-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-main);
+            line-height: 1;
+        }
+
+        .cd-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: var(--sp-sm);
+        }
+
+        .live-badge {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-2);
-            background: rgba(255, 204, 0, 0.1);
-            color: var(--color-accent-primary);
-            padding: var(--space-3) var(--space-5);
-            border-radius: var(--radius-full);
-            font-family: 'Outfit', sans-serif;
+            gap: var(--sp-sm);
+            background: var(--accent-glow);
+            color: var(--accent-main);
+            padding: var(--sp-sm) var(--sp-xl);
+            border-radius: var(--br-full);
             font-weight: 700;
-            font-size: 1.25rem;
-            border: 1px solid var(--color-accent-glow-strong);
-            box-shadow: 0 0 30px var(--color-accent-glow);
+            border: 1px solid var(--border-focus);
             animation: pulseGlow 2s infinite;
         }
 
-        /* Grid System (CSS Grid) */
-        .bento-grid {
+        /* ==========================================================================
+           CARDS & GRID SYSTEM
+           ========================================================================== */
+        .grid-3 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: var(--space-5);
+            gap: var(--sp-xl);
         }
 
-        /* Cards */
-        .card {
-            background: var(--color-bg-surface);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            transition: var(--transition-normal);
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: var(--sp-xl);
+        }
+
+        .glass-card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            border-radius: var(--br-lg);
+            padding: var(--sp-2xl);
             position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: border-color var(--transition-normal);
         }
 
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,204,0,0.06), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+        .glass-card:hover {
+            border-color: var(--border-focus);
         }
 
-        .card:hover::after { opacity: 1; }
-
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: var(--color-border-focus);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
-            background: var(--color-bg-surface-elevated);
+        .card-content {
+            transform: translateZ(30px); /* Effet 3D sur le contenu */
         }
 
-        .card-icon {
-            width: 64px; height: 64px;
-            background: var(--color-accent-glow);
-            color: var(--color-accent-primary);
-            border-radius: var(--radius-md);
+        .icon-box {
+            width: 70px; height: 70px;
+            background: var(--accent-glow);
+            border: 1px solid var(--border-focus);
+            border-radius: var(--br-md);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            margin-bottom: var(--space-5);
-            border: 1px solid var(--color-accent-glow-strong);
+            color: var(--accent-main);
+            margin-bottom: var(--sp-lg);
             transition: var(--transition-bounce);
         }
 
-        .card:hover .card-icon {
-            transform: scale(1.1) rotate(5deg);
+        .glass-card:hover .icon-box {
+            transform: scale(1.1) rotate(5deg) translateZ(40px);
+            box-shadow: 0 10px 20px var(--accent-glow-strong);
         }
 
-        .code-block {
+        .code-snippet {
             display: inline-block;
             background: #000;
-            color: var(--color-accent-primary);
-            padding: var(--space-2) var(--space-3);
-            border-radius: var(--radius-sm);
+            color: var(--accent-main);
             font-family: monospace;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border: 1px solid #333;
-            margin-top: var(--space-3);
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: var(--sp-sm) var(--sp-md);
+            border-radius: var(--br-sm);
+            border: 1px dashed var(--accent-main);
+            margin-top: var(--sp-md);
             letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition-fast);
         }
 
-        /* UI Mockup (Fidèle à l'image fournie) */
-        .mockup-container {
-            background: #0a0a0c;
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            margin-bottom: var(--space-6);
+        .code-snippet:hover {
+            background: var(--accent-main);
+            color: #000;
         }
 
-        .ui-tabs {
+        /* ==========================================================================
+           INTERACTIVE PROFILE MOCKUP
+           ========================================================================== */
+        .mockup-ui {
+            background: var(--bg-surface-solid);
+            border: 1px solid var(--border-light);
+            border-radius: var(--br-lg);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .mockup-header {
+            padding: var(--sp-xl) var(--sp-xl) 0 var(--sp-xl);
+            border-bottom: 1px solid var(--border-light);
             display: flex;
             justify-content: center;
-            gap: var(--space-8);
-            border-bottom: 1px solid #222;
-            padding-bottom: var(--space-3);
-            flex-wrap: wrap;
+            gap: var(--sp-2xl);
+            background: #0a0a0c;
         }
 
-        .ui-tab {
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding-bottom: var(--sp-md);
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: var(--space-2);
-            color: #71717a;
-            font-weight: 600;
-            font-size: 1.2rem;
-            cursor: default;
-            padding-bottom: var(--space-2);
+            gap: var(--sp-sm);
             position: relative;
-            font-family: 'Outfit', sans-serif;
+            transition: var(--transition-normal);
         }
 
-        .ui-tab span { color: #52525b; }
+        .tab-btn span { color: #52525b; font-size: 1rem; }
         
-        .ui-tab.active { color: var(--color-accent-primary); }
-        .ui-tab.active span { color: var(--color-accent-primary); }
-        
-        .ui-tab.active::after {
+        .tab-btn:hover { color: var(--text-primary); }
+
+        .tab-btn.active { color: var(--accent-main); }
+        .tab-btn.active span { color: var(--accent-main); }
+
+        .tab-btn::after {
             content: '';
             position: absolute;
-            bottom: -17px; left: 0; width: 100%; height: 3px;
-            background: var(--color-accent-primary);
-            border-radius: 3px 3px 0 0;
-            box-shadow: 0 -2px 10px var(--color-accent-glow-strong);
+            bottom: -1px; left: 0;
+            width: 100%; height: 3px;
+            background: var(--accent-main);
+            transform: scaleX(0);
+            transition: transform var(--transition-bounce);
+            box-shadow: 0 -3px 10px var(--accent-glow-strong);
         }
 
-        /* Liste des points forts */
+        .tab-btn.active::after { transform: scaleX(1); }
+
+        .mockup-body {
+            padding: var(--sp-2xl);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s var(--ease-out) forwards;
+            text-align: center;
+        }
+
+        .tab-content.active { display: block; }
+        .tab-content i { font-size: 3rem; color: var(--accent-main); margin-bottom: var(--sp-md); }
+
+        /* ==========================================================================
+           FEATURES LIST & TABLE
+           ========================================================================== */
         .feature-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: var(--space-4);
+            gap: var(--sp-md);
         }
 
-        .feature-list li {
+        .feature-item {
             display: flex;
-            align-items: flex-start;
-            gap: var(--space-3);
-            color: var(--color-text-secondary);
-            font-size: 1.1rem;
+            gap: var(--sp-lg);
             background: rgba(255,255,255,0.02);
-            padding: var(--space-4);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-border-subtle);
-            transition: var(--transition-fast);
+            padding: var(--sp-lg);
+            border-radius: var(--br-md);
+            border: 1px solid var(--border-light);
+            transition: var(--transition-normal);
+            align-items: center;
         }
 
-        .feature-list li:hover {
-            background: rgba(255,255,255,0.04);
+        .feature-item:hover {
+            background: rgba(255,255,255,0.05);
             transform: translateX(10px);
-            border-color: var(--color-border-focus);
+            border-color: var(--border-focus);
         }
 
-        .feature-list i {
-            color: var(--color-accent-primary);
-            font-size: 1.5rem;
-            margin-top: 2px;
+        .feature-item i {
+            font-size: 2rem;
+            color: var(--accent-main);
+            width: 40px;
+            text-align: center;
         }
 
-        .feature-list strong { color: var(--color-text-primary); }
-
-        /* Tableau Comparatif */
-        .table-wrapper {
-            background: var(--color-bg-surface);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        table {
+        /* Table */
+        .custom-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--bg-surface);
+            border-radius: var(--br-lg);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+        }
+
+        .custom-table th, .custom-table td {
+            padding: var(--sp-lg) var(--sp-xl);
             text-align: left;
+            border-bottom: 1px solid var(--border-light);
         }
 
-        th, td {
-            padding: var(--space-5);
-            border-bottom: 1px solid var(--color-border-subtle);
-        }
-
-        th {
+        .custom-table th {
             background: rgba(255, 204, 0, 0.05);
-            color: var(--color-accent-primary);
+            color: var(--accent-main);
             font-family: 'Outfit', sans-serif;
-            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        tr:last-child td { border-bottom: none; }
-        
-        tr:hover td { background: rgba(255,255,255,0.02); }
-        
-        td:nth-child(2) { color: var(--color-text-muted); }
-        td:nth-child(3) { color: var(--color-text-primary); font-weight: 600; }
+        .custom-table tr:last-child td { border-bottom: none; }
+        .custom-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .custom-table td:nth-child(2) { color: var(--text-muted); }
+        .custom-table td:nth-child(3) { color: var(--text-title); font-weight: 600; }
 
-        /* Bannière Discord (Composant Spécifique) */
-        .discord-card {
-            background: linear-gradient(145deg, rgba(88, 101, 242, 0.1) 0%, rgba(18, 18, 20, 1) 100%);
+        /* ==========================================================================
+           DISCORD BANNER & CTA
+           ========================================================================== */
+        .discord-banner {
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.15) 0%, rgba(18, 18, 22, 0.8) 100%);
             border: 1px solid var(--discord-color);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
+            border-radius: var(--br-xl);
+            padding: var(--sp-3xl);
             display: flex;
             align-items: center;
-            gap: var(--space-6);
+            gap: var(--sp-3xl);
             position: relative;
             overflow: hidden;
         }
 
-        .discord-card::before {
+        .discord-banner::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
+            top: 0; left: 0; height: 100%; width: 5px;
             background: var(--discord-color);
-            box-shadow: 0 0 20px var(--discord-color);
+            box-shadow: 0 0 30px var(--discord-color);
         }
 
-        .discord-icon {
-            font-size: 5rem;
+        .discord-banner i {
+            font-size: 6rem;
             color: var(--discord-color);
-            filter: drop-shadow(0 0 20px rgba(88, 101, 242, 0.4));
+            filter: drop-shadow(0 0 20px rgba(88, 101, 242, 0.5));
+            transition: var(--transition-bounce);
         }
 
-        /* Bouton & CTA */
-        .cta-container {
-            text-align: center;
-            padding: var(--space-8) 0;
-            border-top: 1px solid var(--color-border-subtle);
-        }
+        .discord-banner:hover i { transform: scale(1.1) rotate(-10deg); }
 
-        .btn-primary {
+        .cta-btn {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-3);
-            background: var(--color-accent-primary);
+            justify-content: center;
+            gap: var(--sp-md);
+            background: var(--accent-main);
             color: #000;
-            padding: var(--space-4) var(--space-8);
-            border-radius: var(--radius-md);
             font-family: 'Outfit', sans-serif;
             font-weight: 800;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
+            padding: var(--sp-lg) var(--sp-3xl);
+            border-radius: var(--br-md);
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: var(--transition-bounce);
-            box-shadow: 0 10px 20px var(--color-accent-glow);
+            box-shadow: 0 10px 30px var(--accent-glow-strong);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            background: var(--color-accent-hover);
-            box-shadow: 0 15px 30px var(--color-accent-glow-strong);
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s var(--ease-in-out);
         }
+
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: var(--accent-hover);
+            box-shadow: 0 20px 40px var(--accent-glow-strong);
+        }
+
+        .cta-btn:hover::before { left: 100%; }
 
         /* ==========================================================================
            ANIMATIONS (KEYFRAMES)
            ========================================================================== */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.2); }
         }
 
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 var(--color-accent-glow-strong); }
+            0% { box-shadow: 0 0 0 0 var(--accent-glow-strong); }
             70% { box-shadow: 0 0 0 20px rgba(255, 204, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0); }
         }
 
+        @keyframes textShimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* ==========================================================================
-           MEDIA QUERIES (RESPONSIVE DESIGN)
+           MEDIA QUERIES (RESPONSIVE)
            ========================================================================== */
-        @media (max-width: 992px) {
-            .page-wrapper { padding: var(--space-4); gap: var(--space-8); }
-            .hero h1 { font-size: 3.5rem; }
-            .discord-card { flex-direction: column; text-align: center; }
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 4rem; }
+            .discord-banner { flex-direction: column; text-align: center; }
         }
 
         @media (max-width: 768px) {
-            .ui-tabs { gap: var(--space-4); }
-            .ui-tab { font-size: 1rem; }
-            th, td { padding: var(--space-3); font-size: 0.9rem; }
-            .btn-primary { width: 100%; justify-content: center; }
+            .layout-container { gap: 80px; padding: var(--sp-2xl) var(--sp-md); }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .mockup-header { flex-direction: column; gap: var(--sp-md); align-items: center; }
+            .countdown-wrapper { flex-wrap: wrap; justify-content: center; }
+            .cd-box { min-width: 80px; padding: var(--sp-md); }
+            .cd-num { font-size: 2rem; }
+            .custom-table th, .custom-table td { padding: var(--sp-md); font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
-    <main class="page-wrapper">
-        
-        <section class="hero">
-            <h1 class="text-gradient">CINELK10</h1>
-            <p style="font-size: 1.25rem; color: var(--color-text-secondary); margin-bottom: var(--space-5);">
-                Votre nouvelle destination streaming ouvre ses portes à 18h00.
+    <canvas id="particle-canvas"></canvas>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <main class="layout-container">
+
+        <section class="hero reveal">
+            <div class="live-badge">
+                <i class="fa-solid fa-satellite-dish"></i> Lancement Officiel
+            </div>
+            
+            <h1 class="hero-title text-gradient">CINELK10 [cite: 1]</h1>
+            <p style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: var(--sp-md); max-width: 800px;">
+                Votre nouvelle destination streaming ouvre ses portes à 18h00. [cite: 2]
             </p>
-            <div class="badge-live">
-                <i class="fa-solid fa-satellite-dish"></i> Compte à rebours lancé - 18:00
-            </div>
-            <p style="margin-top: var(--space-6); color: var(--color-text-muted); max-width: 700px; margin-left: auto; margin-right: auto;">
-                Soyez au rendez-vous ! Préparez votre setup et votre pop-corn. L'accès global sera activé précisément à cette heure pour tous les membres du serveur. Ouverture des serveurs imminente.
+            <p style="color: var(--text-secondary); max-width: 600px;">
+                Soyez au rendez-vous ! [cite: 41] Préparez votre setup et votre pop-corn. L'accès global sera activé précisément à cette heure pour tous les membres du serveur. [cite: 42]
             </p>
+
+            <div class="countdown-wrapper">
+                <div class="cd-box"><div class="cd-num" id="cd-hours">00</div><div class="cd-label">Heures</div></div>
+                <div class="cd-box"><div class="cd-num" id="cd-minutes">00</div><div class="cd-label">Minutes</div></div>
+                <div class="cd-box"><div class="cd-num" id="cd-seconds">00</div><div class="cd-label">Secondes</div></div>
+            </div>
         </section>
 
-        <section>
+        <section class="reveal">
             <div class="section-header">
-                <h2>Comment nous rejoindre ?</h2>
-                <p>Une procédure simple pour un accès illimité. Suivez ces étapes pour déverrouiller la plateforme.</p>
+                <h2>Comment nous rejoindre ? [cite: 3]</h2>
+                <p>Une procédure simple pour un accès illimité. [cite: 4] Étapes d'accès à la plateforme [cite: 5]</p>
             </div>
             
-            <div class="bento-grid">
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-link"></i></div>
-                    <h3>Lien du site</h3>
-                    <p>Accédez à l'adresse officielle hébergée sur GitHub Pages pour découvrir l'intégralité de notre catalogue.</p>
+            <div class="grid-3" id="tilt-cards">
+                <div class="glass-card">
+                    <div class="card-content">
+                        <div class="icon-box"><i class="fa-solid fa-link"></i></div>
+                        <h3>Lien du site [cite: 6]</h3>
+                        <p>Accédez à l'adresse officielle sur GitHub Pages pour découvrir le catalogue. [cite: 7]</p>
+                    </div>
                 </div>
                 
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h3>Sécurité</h3>
-                    <p>Utilisez le mot de passe de sécurité pour déverrouiller l'entrée de la plateforme :</p>
-                    <span class="code-block">cinelk10.co</span>
+                <div class="glass-card" style="border-color: var(--border-focus);">
+                    <div class="card-content">
+                        <div class="icon-box"><i class="fa-solid fa-lock"></i></div>
+                        <h3>Sécurité [cite: 8]</h3>
+                        <p>Utilisez le mot de passe de sécurité pour déverrouiller l'entrée. [cite: 9]</p>
+                        <div class="code-snippet" onclick="copyPassword()">cinelk10.co</div>
+                    </div>
                 </div>
                 
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-user-plus"></i></div>
-                    <h3>Inscription</h3>
-                    <p>Créez votre compte personnel (Identifiant + Mot de passe) pour finaliser votre accès et sauvegarder vos données.</p>
+                <div class="glass-card">
+                    <div class="card-content">
+                        <div class="icon-box"><i class="fa-solid fa-user-plus"></i></div>
+                        <h3>Inscription [cite: 12]</h3>
+                        <p>Créez votre compte personnel (ID+MDP) pour finaliser votre accès. [cite: 13]</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section>
+        <section class="reveal">
             <div class="section-header">
-                <h2>Votre espace profil complet</h2>
-                <p>Une interface pensée pour les utilisateurs exigeants.</p>
-            </div>
-            
-            <div class="mockup-container">
-                <div class="ui-tabs">
-                    <div class="ui-tab"><i class="fa-solid fa-heart"></i> Favoris <span>0</span></div>
-                    <div class="ui-tab active"><i class="fa-solid fa-clock"></i> À voir <span>2</span></div>
-                    <div class="ui-tab"><i class="fa-solid fa-trophy"></i> Mon Top <span>0</span></div>
-                </div>
+                <h2>Votre espace profil complet [cite: 14]</h2>
+                <p>Gérez votre bibliothèque et vos préférences de visionnage depuis un tableau de bord ultra-moderne.</p>
             </div>
 
-            <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-heart"></i></div>
-                    <h3>Vos Favoris</h3>
-                    <p>Retrouvez instantanément tous vos films et séries préférés en un clic depuis votre tableau de bord central.</p>
-                </div>
-                <div class="card" style="border-color: rgba(255,204,0,0.3); background: var(--color-bg-surface-elevated);">
-                    <div class="card-icon"><i class="fa-solid fa-clock"></i></div>
-                    <h3>Liste "À voir"</h3>
-                    <p>Ne perdez plus jamais une suggestion ! Enregistrez vos pépites pour plus tard très facilement grâce à cette liste dédiée.</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
-                <div class="card">
-                    <h2 style="font-size: 1.75rem; color: var(--color-accent-primary);">Personnalisation & Sécurité</h2>
-                    
-                    <h4 style="margin-top: var(--space-4); font-size: 1.2rem;">Profil à votre image</h4>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">Customisez votre expérience en ajoutant votre propre photo de profil dès votre première connexion.</p>
-                    
-                    <h4 style="font-size: 1.2rem;">Sécurité renforcée</h4>
-                    <p style="color: var(--color-text-secondary);">Vous avez la possibilité de changer votre mot de passe à tout moment en cas d'oubli ou pour plus de sûreté.</p>
+            <div class="mockup-ui">
+                <div class="mockup-header">
+                    <button class="tab-btn" data-target="tab-favoris">
+                        <i class="fa-solid fa-heart"></i> Favoris <span>0</span>
+                    </button>
+                    <button class="tab-btn active" data-target="tab-avoir">
+                        <i class="fa-solid fa-clock"></i> À voir <span>2</span>
+                    </button>
+                    <button class="tab-btn" data-target="tab-top">
+                        <i class="fa-solid fa-trophy"></i> Mon Top <span>0</span>
+                    </button>
                 </div>
                 
-                <div class="card">
-                    <h2 style="font-size: 1.75rem; color: var(--color-accent-primary);">Exclusivité totale</h2>
+                <div class="mockup-body">
+                    <div class="tab-content" id="tab-favoris">
+                        <i class="fa-solid fa-heart"></i>
+                        <h3>Vos Favoris [cite: 15]</h3>
+                        <p style="color: var(--text-secondary); max-width: 400px; margin: 0 auto;">Retrouvez instantanément tous vos films et séries préférés en un clic depuis votre tableau de bord. [cite: 16]</p>
+                    </div>
                     
-                    <h4 style="margin-top: var(--space-4); font-size: 1.2rem;">Un contenu toujours frais</h4>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">À partir d'aujourd'hui, l'intégralité des nouveaux ajouts se fera exclusivement sur la plateforme web CineLK10.</p>
+                    <div class="tab-content active" id="tab-avoir">
+                        <i class="fa-solid fa-clock"></i>
+                        <h3>Liste "À voir" [cite: 18]</h3>
+                        <p style="color: var(--text-secondary); max-width: 400px; margin: 0 auto;">Ne perdez plus jamais une suggestion! Enregistrez vos pépites pour plus tard très facilement. [cite: 19]</p>
+                    </div>
                     
-                    <p style="color: var(--color-text-secondary);">C'est votre hub central pour toutes les nouveautés cinéma et séries, avec un historique de vue pour ne jamais oublier où vous en êtes.</p>
+                    <div class="tab-content" id="tab-top">
+                        <i class="fa-solid fa-trophy"></i>
+                        <h3>Mon Top</h3>
+                        <p style="color: var(--text-secondary); max-width: 400px; margin: 0 auto;">Classez et notez vos meilleures expériences cinématographiques.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section>
-            <div class="section-header">
-                <h2>Points forts de l'expérience</h2>
-            </div>
-            
-            <div class="mockup-container">
-                <ul class="feature-list">
-                    <li>
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                        <div><strong>Historique de visionnage :</strong> Reprenez vos contenus exactement là où vous les avez laissés.</div>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-gem"></i>
-                        <div><strong>Qualité Premium :</strong> Une interface fluide et des flux optimisés pour tous vos écrans (4K / Ultra HD).</div>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-sliders"></i>
-                        <div><strong>Gestion simplifiée :</strong> Votre compte vous suit partout avec vos paramètres personnalisés.</div>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-bolt"></i>
-                        <div><strong>Nouveautés quotidiennes :</strong> Une mise à jour régulière basée sur vos suggestions Discord.</div>
-                    </li>
-                </ul>
+        <section class="reveal">
+            <div class="grid-2">
+                <div class="glass-card">
+                    <div class="card-content">
+                        <h2 style="color: var(--accent-main); margin-bottom: var(--sp-lg);">Personnalisation & Sécurité [cite: 20]</h2>
+                        
+                        <h3 style="font-size: 1.25rem;">Profil à votre image [cite: 21]</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--sp-lg);">Customisez votre expérience en ajoutant votre propre photo de profil dès votre première connexion. [cite: 22]</p>
+                        
+                        <h3 style="font-size: 1.25rem;">Sécurité renforcée [cite: 23]</h3>
+                        <p style="color: var(--text-secondary);">Vous avez la possibilité de changer votre mot de passe à tout moment en cas d'oubli ou pour plus de sûreté. [cite: 24]</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card">
+                    <div class="card-content">
+                        <h2 style="color: var(--accent-main); margin-bottom: var(--sp-lg);">Exclusivité totale [cite: 48]</h2>
+                        
+                        <h3 style="font-size: 1.25rem;">Un contenu toujours frais [cite: 49]</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--sp-lg);">À partir d'aujourd'hui, l'intégralité des nouveaux ajouts se fera exclusivement sur la plateforme web Ciné LK10. [cite: 50]</p>
+                        
+                        <p style="color: var(--text-secondary);">C'est votre hub central pour toutes les nouveautés cinéma et séries, avec un historique de vue pour ne jamais oublier où vous en êtes. [cite: 51]</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section>
+        <section class="reveal">
             <div class="section-header">
-                <h2>Comparatif des services</h2>
-                <p>Pourquoi CineLK10 est la mise à jour dont la communauté avait besoin.</p>
+                <h2>Points forts de l'expérience [cite: 62]</h2>
             </div>
             
-            <div class="table-wrapper">
-                <table>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <div><strong>Historique de visionnage:</strong> Reprenez vos contenus exactement là où vous les avez laissés. [cite: 63]</div>
+                </li>
+                <li class="feature-item">
+                    <i class="fa-solid fa-gem"></i>
+                    <div><strong>Qualité Premium:</strong> Une interface fluide et des flux optimisés pour tous vos écrans. [cite: 64]</div>
+                </li>
+                <li class="feature-item">
+                    <i class="fa-solid fa-user-gear"></i>
+                    <div><strong>Gestion simplifiée :</strong> Votre compte vous suit partout avec vos paramètres personnalisés. [cite: 65]</div>
+                </li>
+                <li class="feature-item">
+                    <i class="fa-solid fa-bolt"></i>
+                    <div><strong>Nouveautés quotidiennes :</strong> Une mise à jour régulière basée sur vos suggestions Discord. [cite: 66]</div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="reveal">
+            <div class="section-header">
+                <h2>Comparatif des services [cite: 67]</h2>
+                <p>Pourquoi la transition vers la nouvelle plateforme est une révolution.</p>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table class="custom-table">
                     <thead>
                         <tr>
-                            <th>Fonctionnalité</th>
-                            <th>Ancien Système</th>
-                            <th>Nouveau CineLK10</th>
+                            <th>Fonctionnalité [cite: 68]</th>
+                            <th>Ancien Système [cite: 68]</th>
+                            <th>Nouveau Ciné LK10 [cite: 68]</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Profil Personnel</strong></td>
-                            <td>Inexistant</td>
-                            <td>Mot de passe de sécurité & Photo</td>
+                            <td>Profil Personnel [cite: 68]</td>
+                            <td>Inexistant [cite: 68]</td>
+                            <td>Mot de passe de sécurité & Photo [cite: 68]</td>
                         </tr>
                         <tr>
-                            <td><strong>Historique / Favoris</strong></td>
-                            <td>Manuel / Externe</td>
-                            <td>Automatique & Intégré</td>
+                            <td>Historique / Favoris [cite: 68]</td>
+                            <td>Manuel [cite: 68]</td>
+                            <td>Automatique [cite: 68]</td>
                         </tr>
                         <tr>
-                            <td><strong>Sécurité d'accès</strong></td>
-                            <td>Basique</td>
-                            <td>Sécurisé par clé (cinelk10.co)</td>
+                            <td>Sécurité d'accès [cite: 68]</td>
+                            <td>Basique [cite: 68]</td>
+                            <td>Sécurisé (Mot de passe)</td>
                         </tr>
                         <tr>
-                            <td><strong>Mises à jour</strong></td>
-                            <td>Limité</td>
-                            <td>Exclusive & Illimitée</td>
+                            <td>Mises à jour [cite: 68]</td>
+                            <td>Limité [cite: 68]</td>
+                            <td>Exclusive & Illimitée [cite: 68]</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <section>
-            <div class="discord-card">
-                <div class="discord-icon">
-                    <i class="fa-brands fa-discord"></i>
-                </div>
+        <section class="reveal">
+            <div class="discord-banner">
+                <i class="fa-brands fa-discord"></i>
                 <div>
-                    <h2 style="margin-bottom: var(--space-2);">Communauté & Suggestions</h2>
-                    <h3 style="color: var(--discord-color); font-size: 1.25rem;">Le salon Discord reste actif</h3>
-                    <p style="color: var(--color-text-secondary); margin-top: var(--space-3);">
-                        Même si le streaming bascule sur le site, vos suggestions de films et séries continuent de se faire ici sur le serveur Discord ! Partagez vos envies, nous les traiterons et les ajouterons directement au catalogue du site.
+                    <h2 style="margin-bottom: var(--sp-sm);">Communauté & Suggestions [cite: 44]</h2>
+                    <h3 style="color: var(--discord-color); font-size: 1.5rem; margin-bottom: var(--sp-md);">Le salon Discord reste actif [cite: 45]</h3>
+                    <p style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: var(--sp-sm);">
+                        Même si le streaming bascule sur le site, vos suggestions de films et séries continuent de se faire ici sur le serveur Discord! [cite: 46]
+                    </p>
+                    <p style="color: var(--text-secondary);">
+                        Partagez vos envies, nous les traiterons et les ajouterons directement au catalogue du site. [cite: 47]
                     </p>
                 </div>
             </div>
         </section>
 
-        <section class="cta-container">
-            <h2 style="font-size: 2.5rem;">Rendez-vous à 18h00</h2>
-            <p style="font-size: 1.25rem; color: var(--color-text-secondary); margin-bottom: var(--space-6);">
-                Préparez-vous pour le futur de notre communauté streaming.
+        <section class="reveal" style="text-align: center; padding-top: var(--sp-3xl); border-top: 1px solid var(--border-light);">
+            <h2 style="font-size: 3rem; margin-bottom: var(--sp-sm);">Rendez-vous à 18h00 [cite: 69]</h2>
+            <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: var(--sp-3xl);">
+                Préparez-vous pour le futur de notre communauté streaming. [cite: 70]
             </p>
             
-            <a href="https://lk10ar.github.io/streaming-cine-lk10/" target="_blank" class="btn-primary">
-                Entrer sur CineLK10 <i class="fa-solid fa-arrow-right"></i>
+            <a href="https://lk10ar.github.io/streaming-cine-lk10/" target="_blank" class="cta-btn">
+                Entrer sur Ciné LK10 <i class="fa-solid fa-right-to-bracket"></i>
             </a>
             
-            <div style="margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border-subtle);">
-                <h3 style="color: var(--color-text-muted); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px;">Des questions ?</h3>
-                <p style="color: var(--color-text-secondary);">N'hésitez pas à poser vos questions sur le salon dédié du serveur Discord.</p>
-                <p style="margin-top: var(--space-3); color: var(--color-accent-primary); font-weight: 700; font-size: 1.2rem;">Merci de faire partie de l'aventure CineLK10!</p>
+            <div style="margin-top: 100px;">
+                <h3 style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-size: 1rem;">DES QUESTIONS ? [cite: 71]</h3>
+                <p style="color: var(--text-secondary); margin-top: var(--sp-md);">N'hésitez pas à poser vos questions sur le salon dédié du serveur Discord. [cite: 72]</p>
+                <p style="color: var(--accent-main); font-weight: 800; font-size: 1.5rem; margin-top: var(--sp-xl);">Merci de faire partie de l'aventure Ciné LK10! [cite: 73]</p>
             </div>
         </section>
 
     </main>
 
     <script>
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
+        // 1. GESTION DES ONGLETS (TABS)
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked
+                btn.classList.add('active');
+                const targetId = btn.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
             });
         });
+
+        // 2. ANIMATION AU SCROLL (INTERSECTION OBSERVER)
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealOnScroll.observe(el));
+
+        // 3. EFFET 3D TILT SUR LES CARTES
+        const cards = document.querySelectorAll('.glass-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element
+                const y = e.clientY - rect.top;  // y position within the element
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                card.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            });
+            
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
+        });
+
+        // 4. COPIE DU MOT DE PASSE AU CLIC
+        function copyPassword() {
+            navigator.clipboard.writeText("cinelk10.co").then(() => {
+                const snippet = document.querySelector('.code-snippet');
+                const originalText = snippet.innerText;
+                snippet.innerText = "Copié !";
+                snippet.style.background = "var(--accent-main)";
+                snippet.style.color = "#000";
+                
+                setTimeout(() => {
+                    snippet.innerText = originalText;
+                    snippet.style.background = "#000";
+                    snippet.style.color = "var(--accent-main)";
+                }, 2000);
+            });
+        }
+
+        // 5. COMPTE A REBOURS JUSQU'A 18H00 AUJOURD'HUI
+        function startCountdown() {
+            const now = new Date();
+            let targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 0, 0);
+            
+            // Si 18h est déjà passé aujourd'hui, on cible demain (optionnel, selon besoin)
+            if (now > targetTime) {
+                targetTime.setDate(targetTime.getDate() + 1);
+            }
+
+            const elHours = document.getElementById('cd-hours');
+            const elMinutes = document.getElementById('cd-minutes');
+            const elSeconds = document.getElementById('cd-seconds');
+
+            const timer = setInterval(() => {
+                const currentTime = new Date().getTime();
+                const distance = targetTime.getTime() - currentTime;
+
+                if (distance < 0) {
+                    clearInterval(timer);
+                    elHours.innerText = "00";
+                    elMinutes.innerText = "00";
+                    elSeconds.innerText = "00";
+                    return;
+                }
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                elHours.innerText = hours.toString().padStart(2, '0');
+                elMinutes.innerText = minutes.toString().padStart(2, '0');
+                elSeconds.innerText = seconds.toString().padStart(2, '0');
+            }, 1000);
+        }
+        
+        startCountdown();
+
+        // 6. SYSTEME DE PARTICULES SUR CANVAS (BACKGROUND)
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resize);
+        resize();
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * -0.5 - 0.1;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                // Reset position if it goes out of bounds
+                if (this.y < 0) {
+                    this.y = height;
+                    this.x = Math.random() * width;
+                }
+                if (this.x < 0 || this.x > width) {
+                    this.speedX = -this.speedX;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 204, 0, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function initParticles() {
+            particles = [];
+            let numParticles = (width * height) / 15000; // Densité des particules
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        
+        initParticles();
+        animateParticles();
     </script>
 </body>
 </html>
