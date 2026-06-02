@@ -105,7 +105,6 @@
             width: 100vw; height: 100vh;
             z-index: -1;
             pointer-events: none;
-            /* Augmentation de l'opacité pour bien voir les feux d'artifice */
             opacity: 0.8; 
         }
 
@@ -244,7 +243,6 @@
             border-radius: var(--br-md);
             min-width: 100px;
             box-shadow: 0 10px 20px var(--accent-glow);
-            /* Ajout d'une lueur pour fêter l'arrivée à 0 */
             animation: pulseGlow 2s infinite; 
         }
 
@@ -330,6 +328,17 @@
         .glass-card:hover .icon-box {
             transform: scale(1.1) rotate(5deg) translateZ(40px);
             box-shadow: 0 10px 20px var(--accent-glow-strong);
+        }
+        
+        .wishboard-item {
+            cursor: pointer;
+        }
+
+        .wishboard-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--border-focus);
+            box-shadow: 0 10px 20px var(--accent-glow);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .code-snippet {
@@ -754,7 +763,7 @@
                 </li>
                 <li class="feature-item">
                     <i class="fa-solid fa-bolt"></i>
-                    <div><strong>Nouveautés quotidiennes :</strong> Une mise à jour régulière basée sur vos suggestions Discord. </div>
+                    <div><strong>Nouveautés quotidiennes :</strong> Une mise à jour régulière basée sur vos suggestions . </div>
                 </li>
             </ul>
         </section>
@@ -801,6 +810,37 @@
         </section>
 
         <section class="reveal">
+            <div class="glass-card" style="border-color: var(--border-focus); background: linear-gradient(135deg, rgba(255, 204, 0, 0.05) 0%, var(--bg-surface) 100%);">
+                <div class="card-content" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    <div style="display: inline-block; background: var(--accent-main); color: #000; padding: var(--sp-xs) var(--sp-sm); border-radius: var(--br-sm); font-family: 'Outfit', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; margin-bottom: var(--sp-md);">Nouveauté Intégrée</div>
+                    <h2 style="font-size: clamp(2rem, 3vw, 2.5rem); margin-bottom: var(--sp-md);">Le Wishboard Ciné LK10</h2>
+                    <p style="color: var(--text-secondary); max-width: 700px; margin-bottom: var(--sp-2xl); font-size: 1.1rem;">
+                        Un contenu manque à l'appel ? Vous pouvez désormais formuler vos demandes <strong>directement depuis le site</strong> grâce au nouveau Wishboard ! 
+                        Choisissez votre catégorie, recherchez le titre et soumettez. Plus votre demande reçoit de votes, plus elle sera traitée rapidement.
+                    </p>
+                    
+                    <div style="display: flex; gap: var(--sp-lg); flex-wrap: wrap; justify-content: center; width: 100%;">
+                        <div style="background: var(--bg-surface-solid); border: 1px solid var(--border-light); border-radius: var(--br-lg); padding: var(--sp-xl); width: 220px; transition: all 0.3s ease;" class="wishboard-item">
+                            <i class="fa-solid fa-film" style="font-size: 2.5rem; color: var(--accent-main); margin-bottom: var(--sp-md);"></i>
+                            <h3 style="margin-bottom: var(--sp-xs);">Film</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Demander un film complet</p>
+                        </div>
+                        <div style="background: var(--bg-surface-solid); border: 1px solid var(--border-light); border-radius: var(--br-lg); padding: var(--sp-xl); width: 220px; transition: all 0.3s ease;" class="wishboard-item">
+                            <i class="fa-solid fa-tv" style="font-size: 2.5rem; color: var(--accent-main); margin-bottom: var(--sp-md);"></i>
+                            <h3 style="margin-bottom: var(--sp-xs);">Série</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Demander une série entière</p>
+                        </div>
+                        <div style="background: var(--bg-surface-solid); border: 1px solid var(--border-light); border-radius: var(--br-lg); padding: var(--sp-xl); width: 220px; transition: all 0.3s ease;" class="wishboard-item">
+                            <i class="fa-solid fa-star" style="font-size: 2.5rem; color: var(--accent-main); margin-bottom: var(--sp-md);"></i>
+                            <h3 style="margin-bottom: var(--sp-xs);">Anime</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Animation japonaise</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal">
             <div class="discord-banner">
                 <i class="fa-brands fa-discord"></i>
                 <div>
@@ -810,7 +850,7 @@
                         Même si le streaming bascule sur le site, vos suggestions de films et séries continuent de se faire ici sur le serveur Discord! 
                     </p>
                     <p style="color: var(--text-secondary);">
-                        Partagez vos envies, nous les traiterons et les ajouterons directement au catalogue du site. 
+                        Partagez vos envies, nous les traiterons et les ajouterons directement au catalogue du site. (Ou utilisez directement le nouveau Wishboard intégré !)
                     </p>
                 </div>
             </div>
